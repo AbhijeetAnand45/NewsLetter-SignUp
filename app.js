@@ -34,7 +34,7 @@ app.post("/",function(req,res){
       const url = "https://us7.api.mailchimp.com/3.0/lists/" + process.env.LIST_ID;
       const options = {
         method: "POST",
-       auth: process.env.API_KEY_PASS /// to update the code of api using gitignore
+       auth: process.env.API_KEY_PASS 
       }
 
 
@@ -45,9 +45,9 @@ app.post("/",function(req,res){
         else{
           res.sendFile(__dirname + "/failure.html");
         }
-        response.on("data",function(data){
-          console.log(JSON.parse(data));
-        })
+        // response.on("data",function(data){
+        //   console.log(JSON.parse(data));
+        // })
       })
       requesting.write(jsonData);
       requesting.end();
@@ -57,7 +57,12 @@ app.post("/failure",function(req,res){
   res.redirect("/");
 })
 
-app.listen(3000,function(){
+let port = process.env.PORT;
+if (port == null || port == "") {
+  port = 3000;
+}
+
+app.listen(port,function(){
     console.log("Server is running at port 3000");
 })
 
